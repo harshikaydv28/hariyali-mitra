@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hariyali Mitra | हरियाली मित्र</title>
+<style>
+  :root{
+    --moss-900:#1B2A1E;
+    --moss-800:#233A27;
+    --moss-700:#2E4E33;
+    --moss-600:#3B6641;
+    --moss-500:#4A7D50;
+    --moss-400:#6B9A6E;
+    --clay:#B5642E;
+    --clay-dark:#8F4E23;
+    --gold:#C0932F;
+    --paper:#F6F2E8;
+    --ink:#1C1F18;
+    --ink-soft:#5B6154;
+    --line:#E2DBC7;
+    --card:#FFFFFF;
+    --radius:12px;
+    --shadow:0 1px 2px rgba(27,42,30,.05);
+    --bg:var(--paper);
+    --text:var(--ink);
+    --text-soft:var(--ink-soft);
+    --surface:var(--card);
+    --border:var(--line);
+    --nav-bg:rgba(246,242,232,.92);
+    --good:#2F7D4F;
+    --bad:#B23B3B;
+  }
+  [data-theme="dark"]{
+    --bg:#12160F;
+    --text:#ECE8DA;
+    --text-soft:#A5AA98;
+    --surface:#181D15;
+    --border:#2A3023;
+    --card:#181D15;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+    --nav-bg:rgba(18,22,15,.92);
+    --moss-400:#84AE87;
+    --good:#57B57D;
+    --bad:#E07272;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans','Noto Sans Devanagari','Noto Sans Gurmukhi','Noto Sans Bengali','Noto Sans Gujarati',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:background .2s ease,color .2s ease;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;object-fit:cover;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  .container{max-width:1160px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:2px solid var(--moss-500);outline-offset:2px;}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:var(--nav-bg);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .navwrap{display:flex;align-items:center;justify-content:space-between;padding:13px 24px;max-width:1160px;margin:0 auto;gap:16px;}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:1.15rem;color:var(--moss-700);letter-spacing:-.01em;}
+  [data-theme="dark"] .brand{color:var(--moss-400);}
+  .brand .leaf{width:32px;height:32px;border-radius:8px;background:var(--moss-600);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+  nav.mainnav{display:flex;gap:2px;flex-wrap:wrap;}
+  nav.mainnav a{padding:8px 12px;border-radius:8px;font-size:.88rem;font-weight:600;color:var(--text-soft);white-space:nowrap;}
+  nav.mainnav a:hover{background:var(--border);color:var(--text);}
+  nav.mainnav a.active{background:var(--moss-600);color:#fff;}
+  .navtools{display:flex;align-items:center;gap:8px;}
+  .icon-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border);font-size:1rem;flex-shrink:0;}
+  .icon-btn:hover{border-color:var(--moss-500);}
+  select.langsel{
+    padding:8px 10px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-weight:600;font-size:.82rem;
+  }
+  .btn{padding:9px 16px;border-radius:9px;font-weight:600;font-size:.88rem;}
+  .btn-primary{background:var(--moss-600);color:#fff;}
+  .btn-primary:hover{background:var(--moss-700);}
+  .btn-ghost{background:transparent;border:1px solid var(--moss-600);color:var(--moss-600);}
+  [data-theme="dark"] .btn-ghost{color:var(--moss-400);border-color:var(--moss-400);}
+  .btn-amber{background:var(--clay);color:#fff;}
+  .btn-amber:hover{background:var(--clay-dark);}
+  .hamb{display:none;}
+
+  /* ===== SECTIONS GENERIC ===== */
+  .page{display:none;}
+  .page.active{display:block;animation:fadein .3s ease;}
+  @keyframes fadein{from{opacity:0;}to{opacity:1;}}
+  .section{padding:56px 0;}
+  .section-head{max-width:600px;margin-bottom:32px;}
+  .eyebrow{color:var(--clay);font-weight:600;font-size:.82rem;margin-bottom:6px;}
+  [data-theme="dark"] .eyebrow{color:var(--gold);}
+  h1{font-size:2.3rem;font-weight:700;line-height:1.18;color:var(--text);letter-spacing:-.01em;}
+  h2{font-size:1.7rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}
+  .section-head p{color:var(--text-soft);margin-top:8px;font-size:1rem;}
+
+  /* ===== HERO ===== */
+  .hero{background:var(--moss-900);color:#fff;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:64px 0 40px;}
+  .hero h1{color:#fff;font-size:2.6rem;}
+  .hero p.lead{color:#CBDACB;margin:16px 0 24px;font-size:1.03rem;max-width:460px;}
+  .hero-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .hero-photo{border-radius:16px;overflow:hidden;aspect-ratio:4/3;border:1px solid rgba(255,255,255,.14);}
+  .hero-photo img{width:100%;height:100%;}
+
+  .stats-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .stat-card{padding:20px 16px;text-align:center;border-left:1px solid var(--border);}
+  .stat-card:first-child{border-left:none;}
+  .stat-card b{display:block;font-size:1.4rem;font-weight:700;color:var(--moss-600);}
+  [data-theme="dark"] .stat-card b{color:var(--moss-400);}
+  .stat-card span{font-size:.78rem;color:var(--text-soft);}
+
+  /* ===== CARD GRIDS ===== */
+  .grid{display:grid;gap:18px;}
+  .grid-3{grid-template-columns:repeat(3,1fr);}
+  .grid-4{grid-template-columns:repeat(4,1fr);}
+  .grid-2{grid-template-columns:repeat(2,1fr);}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .15s ease;}
+  .card:hover{border-color:var(--moss-500);}
+  .card .imgwrap{aspect-ratio:4/3;overflow:hidden;background:var(--border);position:relative;}
+  .card .imgwrap img{width:100%;height:100%;}
+  .card .body{padding:15px 16px;}
+  .card h3{font-size:1rem;font-weight:700;margin-bottom:4px;}
+  .card p{font-size:.86rem;color:var(--text-soft);}
+  .tag{display:inline-block;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--moss-600);color:#fff;margin-bottom:8px;}
+
+  /* ===== FEATURE ICON CARDS ===== */
+  .feat-card{padding:22px;text-align:left;}
+  .feat-icon{width:44px;height:44px;border-radius:11px;background:var(--moss-700);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:12px;}
+  [data-theme="dark"] .feat-icon{background:var(--moss-600);}
+
+  /* ===== CROP GUIDE ===== */
+  .banner{background:var(--moss-800);color:#fff;padding:48px 0 78px;}
+  .banner h1{color:#fff;}
+  .banner p{color:#CBDACB;margin-top:8px;max-width:540px;}
+  .searchbar{position:relative;margin-top:-36px;z-index:3;}
+  .searchbar-inner{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .searchbar input{flex:1;min-width:180px;border:1px solid var(--border);border-radius:9px;padding:11px 13px;background:var(--bg);color:var(--text);font-size:.94rem;}
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0;}
+  .pill{padding:7px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);font-size:.83rem;font-weight:600;color:var(--text-soft);}
+  .pill.active,.pill:hover{background:var(--moss-600);color:#fff;border-color:var(--moss-600);}
+
+  /* ===== MARKET ===== */
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  th,td{padding:12px 15px;text-align:left;font-size:.88rem;border-bottom:1px solid var(--border);}
+  th{background:var(--bg);color:var(--text-soft);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;}
+  tr:last-child td{border-bottom:none;}
+  .price-up{color:var(--good);font-weight:700;}
+  .price-down{color:var(--bad);font-weight:700;}
+
+  /* ===== WEATHER ===== */
+  .weather-now{background:var(--moss-700);color:#fff;border-radius:16px;padding:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+  .weather-now .temp{font-size:3rem;font-weight:700;}
+  .forecast-scroll{display:flex;gap:12px;overflow-x:auto;padding:24px 2px 8px;}
+  .fday{flex:0 0 108px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center;}
+  .fday .ic{font-size:1.5rem;margin:6px 0;}
+  .fday .hi{font-weight:700;}
+  .fday .lo{color:var(--text-soft);font-size:.83rem;}
+
+  /* ===== RENTAL ===== */
+  .rent-price{font-weight:700;color:var(--moss-600);font-size:1rem;}
+  [data-theme="dark"] .rent-price{color:var(--moss-400);}
+  .avail{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:700;color:var(--good);}
+  .avail::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--good);}
+
+  /* ===== COMMUNITY ===== */
+  .post{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px;}
+  .post-head{display:flex;align-items:center;gap:11px;margin-bottom:10px;}
+  .avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--border);}
+  .avatar img{width:100%;height:100%;}
+  .post-name{font-weight:700;font-size:.92rem;}
+  .post-time{font-size:.76rem;color:var(--text-soft);}
+  .post-actions{display:flex;gap:16px;margin-top:12px;padding-top:11px;border-top:1px solid var(--border);}
+  .post-actions button{display:flex;align-items:center;gap:6px;font-size:.83rem;font-weight:600;color:var(--text-soft);}
+  .post-actions button:hover{color:var(--moss-600);}
+  .post-actions button.liked{color:var(--bad);}
+  .new-post{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:22px;}
+  .new-post textarea{width:100%;border:1px solid var(--border);border-radius:9px;padding:11px;resize:vertical;min-height:66px;background:var(--bg);color:var(--text);font-family:inherit;font-size:.9rem;}
+
+  /* ===== SCHEMES ===== */
+  .scheme-card{border-left:3px solid var(--clay);padding:20px;}
+  .scheme-card h3{color:var(--moss-700);}
+  [data-theme="dark"] .scheme-card h3{color:var(--moss-400);}
+
+  /* ===== ABOUT ===== */
+  .about-hero{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+
+  /* ===== AUTH ===== */
+  .auth-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 62px);}
+  .auth-side{background:var(--moss-900);color:#fff;padding:56px;display:flex;flex-direction:column;justify-content:center;}
+  .auth-side h2{color:#fff;font-size:1.9rem;}
+  .auth-side p{color:#CBDACB;margin-top:10px;max-width:380px;}
+  .auth-form-wrap{display:flex;align-items:center;justify-content:center;padding:40px;}
+  .auth-card{width:100%;max-width:380px;}
+  .auth-tabs{display:flex;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:24px;}
+  .auth-tabs button{flex:1;padding:9px;border-radius:7px;font-weight:700;font-size:.88rem;color:var(--text-soft);}
+  .auth-tabs button.active{background:var(--moss-600);color:#fff;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:.8rem;font-weight:600;margin-bottom:5px;color:var(--text-soft);}
+  .field input,.field select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.9rem;}
+  .auth-submit{width:100%;padding:12px;border-radius:9px;background:var(--moss-600);color:#fff;font-weight:700;font-size:.92rem;margin-top:4px;}
+  .auth-submit:hover{background:var(--moss-700);}
+
+  footer{background:var(--moss-900);color:#B9CBB9;padding:42px 0 24px;margin-top:36px;}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;}
+  footer h4{color:#fff;margin-bottom:10px;font-size:.9rem;font-weight:700;}
+  footer a{display:block;padding:4px 0;font-size:.84rem;color:#9FB59F;}
+  footer a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:26px;padding-top:18px;text-align:center;font-size:.78rem;color:#82977F;}
+
+  ::-webkit-scrollbar{height:7px;width:7px;}
+  ::-webkit-scrollbar-thumb{background:var(--moss-500);border-radius:10px;}
+
+  @media(max-width:900px){
+    .hero-grid,.about-hero{grid-template-columns:1fr;}
+    .grid-4{grid-template-columns:repeat(2,1fr);}
+    .grid-3{grid-template-columns:repeat(2,1fr);}
+    .stats-strip{grid-template-columns:repeat(2,1fr);}
+    .stat-card:nth-child(3){border-left:none;}
+    .auth-wrap{grid-template-columns:1fr;}
+    .auth-side{padding:40px 30px;min-height:200px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:720px){
+    nav.mainnav{position:fixed;top:60px;left:0;right:0;background:var(--surface);flex-direction:column;padding:8px;border-bottom:1px solid var(--border);display:none;}
+    nav.mainnav.open{display:flex;}
+    nav.mainnav a{padding:12px;}
+    .hamb{display:flex;}
+    h1{font-size:1.9rem;}
+    .grid-4,.grid-3,.grid-2{grid-template-columns:1fr 1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+  }
+  @media(max-width:480px){
+    .grid-4,.grid-3,.grid-2{grid-template-columns:1fr;}
+    .stats-strip{grid-template-columns:1fr 1fr;}
+    .stat-card:nth-child(2){border-left:none;}
+    .hero h1{font-size:2rem;}
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<header>
+  <div class="navwrap">
+    <div class="brand"><span class="leaf">🌱</span><span data-i="brand">Hariyali Mitra</span></div>
+    <nav class="mainnav" id="mainnav">
+      <a href="#" data-page="home" class="active" data-i="navHome">Home</a>
+      <a href="#" data-page="crops" data-i="navCrops">Crop Guide</a>
+      <a href="#" data-page="market" data-i="navMarket">Market Price</a>
+      <a href="#" data-page="weather" data-i="navWeather">Weather</a>
+      <a href="#" data-page="rental" data-i="navRental">Rent Equipment</a>
+      <a href="#" data-page="community" data-i="navCommunity">Community</a>
+      <a href="#" data-page="schemes" data-i="navSchemes">Govt Schemes</a>
+      <a href="#" data-page="about" data-i="navAbout">About</a>
+    </nav>
+    <div class="navtools">
+      <select class="langsel" id="langSelect">
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+        <option value="pa">ਪੰਜਾਬੀ</option>
+        <option value="mr">मराठी</option>
+        <option value="gu">ગુજરાતી</option>
+        <option value="bn">বাংলা</option>
+      </select>
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">🌙</button>
+      <button class="btn btn-primary" data-page="auth" onclick="goPage('auth')" data-i="navLogin">Login</button>
+      <button class="hamb icon-btn" id="hambBtn">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HOME ================= -->
+<section class="page active" id="page-home">
+  <div class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1 data-i="heroTitle">Smart farming starts with the right information</h1>
+        <p class="lead" data-i="heroLead">Hariyali Mitra brings crop guidance, live mandi prices, weather forecasts, equipment rental and a farmer community into one simple app — in your own language.</p>
+        <div class="hero-actions">
+          <button class="btn btn-amber" onclick="goPage('crops')" data-i="heroBtn1">Explore Crop Guide</button>
+          <button class="btn btn-ghost" style="color:#fff;border-color:#fff" onclick="goPage('community')" data-i="heroBtn2">Join Community</button>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=900&q=80" alt="Farmer in green field" onerror="this.src='https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&q=80'">
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="stats-strip">
+      <div class="stat-card"><b>50K+</b><span data-i="statFarmers">Farmers helped</span></div>
+      <div class="stat-card"><b>28</b><span data-i="statStates">States covered</span></div>
+      <div class="stat-card"><b>6</b><span data-i="statLangs">Languages</span></div>
+      <div class="stat-card"><b>1,200+</b><span data-i="statEquip">Equipment listed</span></div>
+    </div>
+  </div>
+
+  <div class="section container">
+    <div class="section-head">
+      <div class="eyebrow" data-i="eyebrowFeatures">What you get</div>
+      <h2 data-i="featTitle">Everything a farmer needs, in one place</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="card feat-card"><div class="feat-icon">🌾</div><h3 data-i="feat1t">Crop Guidance</h3><p data-i="feat1d">Sowing to harvest advice for 12+ major crops.</p></div>
+      <div class="card feat-card"><div class="feat-icon">💰</div><h3 data-i="feat2t">Live Mandi Prices</h3><p data-i="feat2d">Daily prices from your nearest markets.</p></div>
+      <div class="card feat-card"><div class="feat-icon">🌦️</div><h3 data-i="feat3t">10-Day Weather</h3><p data-i="feat3d">Plan irrigation and harvest around the forecast.</p></div>
+      <div class="card feat-card"><div class="feat-icon">🚜</div><h3 data-i="feat4t">Rent Equipment</h3><p data-i="feat4d">Tractors, harvesters and tools from nearby owners.</p></div>
+      <div class="card feat-card"><div class="feat-icon">💬</div><h3 data-i="feat5t">Community</h3><p data-i="feat5d">Ask questions, share results with other farmers.</p></div>
+      <div class="card feat-card"><div class="feat-icon">🏛️</div><h3 data-i="feat6t">Govt Schemes</h3><p data-i="feat6d">Check eligibility and apply to subsidy schemes.</p></div>
+      <div class="card feat-card"><div class="feat-icon">📍</div><h3 data-i="feat7t">Local Language</h3><p data-i="feat7d">Full app in Hindi, Punjabi, Marathi and more.</p></div>
+      <div class="card feat-card"><div class="feat-icon">🌓</div><h3 data-i="feat8t">Light &amp; Dark Mode</h3><p data-i="feat8d">Easy on the eyes, day or night, in the field.</p></div>
+    </div>
+  </div>
+
+  <div class="section container" style="padding-top:0">
+    <div class="section-head">
+      <div class="eyebrow" data-i="eyebrowUpdates">Latest</div>
+      <h2 data-i="updatesTitle">Updates for farmers</h2>
+    </div>
+    <div class="grid grid-3" id="updatesGrid"></div>
+  </div>
+</section>
+
+<!-- ================= CROP GUIDE ================= -->
+<section class="page" id="page-crops">
+  <div class="banner">
+    <div class="container">
+      <h1 data-i="cropsTitle">Crop Guide</h1>
+      <p data-i="cropsLead">Search sowing season, ideal soil, watering needs and yield tips for major Indian crops.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="searchbar">
+      <div class="searchbar-inner">
+        <input type="text" id="cropSearch" data-i-ph="cropSearchPh" placeholder="Search a crop e.g. Wheat, Rice, Cotton...">
+        <button class="btn btn-primary" data-i="searchBtn">Search</button>
+      </div>
+    </div>
+    <div class="filter-row" id="cropFilters"></div>
+    <div class="grid grid-4" id="cropGrid" style="margin-bottom:60px"></div>
+  </div>
+</section>
+
+<!-- ================= MARKET ================= -->
+<section class="page" id="page-market">
+  <div class="section container">
+    <div class="section-head">
+      <div class="eyebrow" data-i="eyebrowMarket">Mandi Bhav</div>
+      <h2 data-i="marketTitle">Today's Market Prices</h2>
+      <p data-i="marketLead">Sample prices per quintal from nearby mandis. Filter by crop or market.</p>
+    </div>
+    <div class="filter-row" id="marketFilters"></div>
+    <table>
+      <thead><tr>
+        <th data-i="thCrop">Crop</th><th data-i="thMandi">Mandi</th><th data-i="thMin">Min (₹)</th><th data-i="thMax">Max (₹)</th><th data-i="thModal">Modal (₹)</th><th data-i="thTrend">Trend</th>
+      </tr></thead>
+      <tbody id="marketTable"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= WEATHER ================= -->
+<section class="page" id="page-weather">
+  <div class="section container">
+    <div class="section-head">
+      <div class="eyebrow" data-i="eyebrowWeather">Forecast</div>
+      <h2 data-i="weatherTitle">10-Day Weather Outlook</h2>
+      <p data-i="weatherLead">Sample forecast for planning irrigation, spraying and harvest windows.</p>
+    </div>
+    <div class="weather-now">
+      <div>
+        <div style="font-size:.9rem;opacity:.85" id="weatherPlace">Gharaunda, Haryana</div>
+        <div class="temp">28°C</div>
+        <div data-i="weatherNowDesc">Clear sky · feels like 30°C</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:2.4rem">☀️</div>
+        <div style="font-size:.85rem;opacity:.85"><span data-i="weatherHumidity">Humidity</span>: 46%</div>
+        <div style="font-size:.85rem;opacity:.85"><span data-i="weatherWind">Wind</span>: 11 km/h</div>
+      </div>
+    </div>
+    <div class="forecast-scroll" id="forecastRow"></div>
+  </div>
+</section>
+
+<!-- ================= RENTAL ================= -->
+<section class="page" id="page-rental">
+  <div class="section container">
+    <div class="section-head">
+      <div class="eyebrow" data-i="eyebrowRental">Machinery Sharing</div>
+      <h2 data-i="rentalTitle">Rent Farm Equipment Nearby</h2>
+      <p data-i="rentalLead">Borrow or list tractors, harvesters and tools by the hour or day, from farmers near you.</p>
+      <button class="btn btn-primary" style="margin-top:14px" onclick="alert(t('listEquipAlert'))" data-i="listEquipBtn">+ List Your Equipment</button>
+    </div>
+    <div class="grid grid-4" id="rentalGrid"></div>
+  </div>
+</section>
+
+<!-- ================= COMMUNITY ================= -->
+<section class="page" id="page-community">
+  <div class="section container" style="max-width:760px">
+    <div class="section-head">
+      <div class="eyebrow" data-i="eyebrowCommunity">Farmer Community</div>
+      <h2 data-i="communityTitle">Ask, share, learn together</h2>
+      <p data-i="communityLead">Post a question or share what worked on your farm this season.</p>
+    </div>
+    <div class="new-post">
+      <textarea id="newPostText" data-i-ph="communityPh" placeholder="Share an update or ask a question..."></textarea>
+      <div style="display:flex;justify-content:flex-end;margin-top:10px">
+        <button class="btn btn-primary" id="postBtn" data-i="postBtn">Post</button>
+      </div>
+    </div>
+    <div id="postsFeed"></div>
+  </div>
+</section>
+
+<!-- ================= SCHEMES ================= -->
+<section class="page" id="page-schemes">
+  <div class="section container">
+    <div class="section-head">
+      <div class="eyebrow" data-i="eyebrowSchemes">Government Support</div>
+      <h2 data-i="schemesTitle">Schemes You May Be Eligible For</h2>
+      <p data-i="schemesLead">An overview of major central government schemes for farmers. Always verify details on the official portal before applying.</p>
+    </div>
+    <div class="grid grid-2" id="schemesGrid"></div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="page" id="page-about">
+  <div class="section container">
+    <div class="about-hero">
+      <div>
+        <div class="eyebrow" data-i="eyebrowAbout">Our Mission</div>
+        <h2 data-i="aboutTitle">Built for the fields, not just the office</h2>
+        <p style="color:var(--text-soft);margin-top:14px;line-height:1.7" data-i="aboutBody">Hariyali Mitra was started to close the information gap between Indian farmers and the tools, prices and knowledge they need every day. We work directly with agriculture universities and mandi boards to keep information accurate, and we build in the languages farmers actually speak at home.</p>
+      </div>
+      <div class="hero-photo" style="aspect-ratio:1/1">
+        <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&q=80" alt="Indian farmer" onerror="this.src='https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80'">
+      </div>
+    </div>
+    <div class="grid grid-4" style="margin-top:50px">
+      <div class="stat-card"><b>2019</b><span data-i="aboutStat1">Founded</span></div>
+      <div class="stat-card"><b>18</b><span data-i="aboutStat2">Partner universities</span></div>
+      <div class="stat-card"><b>50K+</b><span data-i="aboutStat3">Active farmers</span></div>
+      <div class="stat-card"><b>6</b><span data-i="aboutStat4">Languages supported</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AUTH ================= -->
+<section class="page" id="page-auth">
+  <div class="auth-wrap">
+    <div class="auth-side">
+      <span style="font-size:2.4rem;position:relative">🌱</span>
+      <h2 data-i="authSideTitle">Grow smarter with Hariyali Mitra</h2>
+      <p data-i="authSideBody">Join thousands of farmers already using crop guidance, mandi prices and equipment rental in their own language.</p>
+    </div>
+    <div class="auth-form-wrap">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="active" id="tabLogin" data-i="tabLogin">Login</button>
+          <button id="tabSignup" data-i="tabSignup">Sign Up</button>
+        </div>
+        <form id="loginForm" onsubmit="return handleAuth(event)">
+          <div class="field"><label data-i="fieldPhone">Mobile Number</label><input type="tel" placeholder="98765 43210" required></div>
+          <div class="field"><label data-i="fieldPassword">Password</label><input type="password" placeholder="••••••••" required></div>
+          <button class="auth-submit" type="submit" data-i="loginSubmit">Login</button>
+        </form>
+        <form id="signupForm" style="display:none" onsubmit="return handleAuth(event)">
+          <div class="field"><label data-i="fieldName">Full Name</label><input type="text" placeholder="Ramesh Kumar" required></div>
+          <div class="field"><label data-i="fieldPhone">Mobile Number</label><input type="tel" placeholder="98765 43210" required></div>
+          <div class="field"><label data-i="fieldState">State</label>
+            <select><option>Haryana</option><option>Punjab</option><option>Maharashtra</option><option>Gujarat</option><option>West Bengal</option><option>Uttar Pradesh</option></select>
+          </div>
+          <div class="field"><label data-i="fieldPassword">Password</label><input type="password" placeholder="••••••••" required></div>
+          <button class="auth-submit" type="submit" data-i="signupSubmit">Create Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot-grid">
+    <div>
+      <div class="brand" style="color:#fff"><span class="leaf">🌱</span>Hariyali Mitra</div>
+      <p style="color:#a9c4af;font-size:.85rem;margin-top:12px;max-width:280px" data-i="footTag">Helping Indian farmers grow smarter, in every language.</p>
+    </div>
+    <div>
+      <h4 data-i="footExplore">Explore</h4>
+      <a href="#" onclick="goPage('crops')" data-i="navCrops">Crop Guide</a>
+      <a href="#" onclick="goPage('market')" data-i="navMarket">Market Price</a>
+      <a href="#" onclick="goPage('weather')" data-i="navWeather">Weather</a>
+    </div>
+    <div>
+      <h4 data-i="footCommunity">Community</h4>
+      <a href="#" onclick="goPage('rental')" data-i="navRental">Rent Equipment</a>
+      <a href="#" onclick="goPage('community')" data-i="navCommunity">Community</a>
+      <a href="#" onclick="goPage('schemes')" data-i="navSchemes">Govt Schemes</a>
+    </div>
+    <div>
+      <h4 data-i="footCompany">Company</h4>
+      <a href="#" onclick="goPage('about')" data-i="navAbout">About</a>
+      <a href="#" onclick="goPage('auth')" data-i="navLogin">Login</a>
+    </div>
+  </div>
+  <div class="foot-bottom" data-i="footBottom">© 2026 Hariyali Mitra. Made for Indian farmers.</div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
